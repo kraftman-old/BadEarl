@@ -1,0 +1,3 @@
+# BadEarl
+
+Basic url checker
