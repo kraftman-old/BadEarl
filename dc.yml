@@ -1,7 +1,11 @@
 version: '3'
 services:
   redis:
-    image: redis:4.0
+    build:
+      context: ./
+      dockerfile: redis.Dockerfile
+    volumes:
+      - './redis:/data'
 
 # networks:
 #   default:
