@@ -5,8 +5,6 @@ local getTimeOfDay = require './lib/gettimeofday'
 local client   = redis.connect('127.0.0.1', 6379)
 local response = client:ping() 
 
-
-
 -- test 
 -- how many we can store in a set and the speed of retrieval, 
 -- how many we can store as k/v pairs and the speed of retrieval
@@ -21,5 +19,10 @@ local getString = function(length)
     return s:sub(1,length)
 end
 
-print(getString(90))
+local a = getTimeOfDay()
+for i = 1, 1000 do
+    getString(90)
+end
+local b = getTimeOfDay()
+print('took: ', b-a)
 
