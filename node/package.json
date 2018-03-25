@@ -1,0 +1,19 @@
+{
+  "name": "badearl",
+  "version": "1.0.0",
+  "description": "API to check for dangerous URLs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kraftman/BadEarl.git"
+  },
+  "author": "Chris Tanner",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kraftman/BadEarl/issues"
+  },
+  "homepage": "https://github.com/kraftman/BadEarl#readme"
+}

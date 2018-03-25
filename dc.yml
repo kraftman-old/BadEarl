@@ -1,5 +1,12 @@
 version: '3'
 services:
+  api:
+    build:
+      context: ../
+      dockerfile: docker/node.Dockerfile
+    volumes:
+      - ../:/usr/src/app
+      - /usr/src/app/node_modules
   redis:
     build:
       context: ./
