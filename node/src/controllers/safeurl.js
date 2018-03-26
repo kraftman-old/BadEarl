@@ -3,6 +3,9 @@ const red      = require('../dal/redis');
 
 const router = express.Router();
 
+
+//check the url exists
+//check the url is valid?
 const validateParams = function(req, res, next) {
     const badURL = req.query.url;
 
@@ -14,20 +17,22 @@ const validateParams = function(req, res, next) {
     return next()
 }
 
-const checkURL = function(req, res, next) {
+// pass to redis
+// check the result
+const checkURL = async function(req, res, next) {
     const urlToCheck = req.query.url;
 
-    red.isBadUrl(urlToCheck)
-    .then( isBadUrl => {
+    try {
+        const isBadUrl = await red.isBadUrl(urlToCheck)
+        
         if (isBadUrl) {
             return res.send('url is unsafe!')
         } 
         return res.send('url is safe!')
-    })
-    .catch(err => {
+    } catch(err) {
         console.log('error getting from redis: ', err)
         next(err);
-    });
+    }
 }
 
 //only apply this middleware to this route

@@ -8,18 +8,16 @@ const red = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOST);
 
 const badURLsKey = 'badUrls'
 
-const isBadUrl = function(URL) {
-    return red.sismemberAsync(badURLsKey, URL)
-    .then(result => {
-        if (result === 1) {
-            return Promise.resolve(true)
-        } else if (result === 0) {
-            return Promise.resolve(false)
-        } else {
-            console.log('unknown result: ', result);
-            return Promise.reject('unknown response from redis');
-        }
-    })
+const isBadUrl = async function(URL) {
+    const result = await red.sismemberAsync(badURLsKey, URL);
+    if (result === 1) {
+        return true
+    } else if (result === 0) {
+        return false
+    } else {
+        console.log('unknown result: ', result);
+        throw new Error('unknown response from redis');
+    }
 }
 
 module.exports = { 
