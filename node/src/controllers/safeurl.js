@@ -1,26 +1,13 @@
-const express  = require('express');
-const red      = require('../dal/redis');
+const express     = require('express');
+const red         = require('../dal/redis');
+const validateURL = require('../middleware/validateurl.js');
 
 const router = express.Router();
-
-
-//check the url exists
-//check the url is valid?
-const validateParams = function(req, res, next) {
-    const badURL = req.query.url;
-
-    if (!badURL) {
-        res.status(400);
-        res.send('please specify a URL!');
-        return next('no url passed');
-    }
-    return next()
-}
 
 // pass to redis
 // check the result
 const checkURL = async function(req, res, next) {
-    const urlToCheck = req.query.url;
+    const urlToCheck = res.locals.url;
 
     try {
         const isBadUrl = await red.isBadUrl(urlToCheck)
@@ -36,7 +23,7 @@ const checkURL = async function(req, res, next) {
 }
 
 //only apply this middleware to this route
-router.use(validateParams)
+router.use(validateURL.validateParams)
 
 router.get('/', checkURL)
 
