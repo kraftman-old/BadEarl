@@ -12,6 +12,9 @@ case $1 in
   stop )
     docker-compose ${devfiles} stop
     ;;
+  connect )
+    docker-compose ${devfiles} exec $2 bash
+    ;;
   build )
     docker-compose ${devfiles} build
     ;;

@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "API to check for dangerous URLs",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "scripts": {    
+    "test": "mocha --recursive",
+    "test-debug": "mocha --recursive --inspect-brk=0.0.0.0:9229"
   },
   "repository": {
     "type": "git",
