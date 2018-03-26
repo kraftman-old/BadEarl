@@ -4,5 +4,8 @@ services:
     ports:
       - '6379:6379'
   api:
+    env_file:
+      - node/dev.env
     ports:
       - '8080:8080'
+    command: ['nodemon', 'server.js']

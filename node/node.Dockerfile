@@ -6,7 +6,7 @@ WORKDIR /usr/src/app
 
 COPY ./package.json /usr/src/app
 
-RUN npm install && npm cache clean --force
+RUN npm install && npm cache clean --force #redo3
 RUN npm install -g mocha nodemon
 
 EXPOSE 8080
