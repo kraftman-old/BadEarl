@@ -10,6 +10,7 @@ const badURLsKey = 'badUrls'
 
 const isBadUrl = async function(URL) {
     const result = await red.sismemberAsync(badURLsKey, URL);
+
     if (result === 1) {
         return true
     } else if (result === 0) {
