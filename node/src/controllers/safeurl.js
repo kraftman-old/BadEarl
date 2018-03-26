@@ -7,10 +7,10 @@ const router = express.Router();
 // pass to redis
 // check the result
 const checkURL = async function(req, res, next) {
-    const urlToCheck = res.locals.url;
+    const domainToCheck = res.locals.hostname;
 
     try {
-        const isBadUrl = await red.isBadUrl(urlToCheck)
+        const isBadUrl = await red.isBadUrl(domainToCheck)
         
         if (isBadUrl) {
             return res.send('url is unsafe!')
