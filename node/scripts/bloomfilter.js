@@ -1,5 +1,6 @@
-const redis = require('redis');
+const redis    = require('redis');
 const bluebird = require('bluebird');
+const uuidv4   = require('uuid/v4');
 
 redis.add_command('BF.ADD')
 redis.add_command('BF.EXISTS')
@@ -20,9 +21,22 @@ red.on("error", function (err) {
 
 const badURLsKey = 'badUrls'
 
+const getRandomString = function(length) {
+    let s = '';
+    while (s.length < length) {
+        s += uuidv4();
+    }
+
+    return s.substring(0, length);
+}
+
 const bloom = {
     add: function(value) {
-        red['BF.ADD'](['bloom', value], function(err, res ) {console.log(res)} )
+        red['BF.ADD'](['bloom', value], function(err, res ) {
+            if (err) {
+                console.log('err: ', err)
+            }
+        } )
         
     },
     exists: function(value) {
@@ -31,7 +45,21 @@ const bloom = {
 
 }
 
-
 bloom.add('test')
-bloom.exists('test')
+let randomString;
+console.log('starting')
+const addAMillion = function() {
+    for (let i = 0; i < 1.5*1000000; i++ ){
+        randomString = getRandomString(2000);
+        bloom.add(randomString);
+    }
+}
+//for (let i = 1; i < 8; i++) {
+//    console.log(i)
+    addAMillion()
+//}
+
+console.log('done')
+
+//bloom.exists('test')
 //bloom.exists('this')
