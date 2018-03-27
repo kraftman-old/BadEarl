@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {    
     "test": "mocha --recursive",
-    "test-debug": "mocha --recursive --inspect-brk=0.0.0.0:9229"
+    "test-debug": "mocha --recursive --inspect-brk=0.0.0.0:9228"
   },
   "repository": {
     "type": "git",

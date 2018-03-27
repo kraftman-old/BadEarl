@@ -7,6 +7,16 @@
         {
             "type": "node",
             "request": "attach",
+            "name": "Docker: Attach to Tests",
+            "port": 9228,
+            "address": "localhost",
+            "localRoot": "${workspaceFolder}",
+            "remoteRoot": "/usr/src/app",
+            "protocol": "inspector"
+        },
+        {
+            "type": "node",
+            "request": "attach",
             "name": "Docker: Attach to Node",
             "port": 9229,
             "address": "localhost",
