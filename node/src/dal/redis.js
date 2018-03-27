@@ -6,6 +6,10 @@ bluebird.promisifyAll(redis.Multi.prototype);
 
 const red = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOST);
 
+red.on("error", function (err) {
+    console.log("Error " + err);
+});
+
 const badURLsKey = 'badUrls'
 
 const isBadUrl = async function(URL) {
