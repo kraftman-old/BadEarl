@@ -50,8 +50,6 @@ To debug tests, connect into the running container, and run 'npm run test-debug'
 The project includes launch scripts for Attaching to Node/the tests.
 
 
-
-
 ## Application Usage
 
 ### Checking a URL

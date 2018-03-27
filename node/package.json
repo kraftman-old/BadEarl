@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "API to check for dangerous URLs",
   "main": "index.js",
-  "scripts": {    
+  "scripts": {
     "test": "mocha --recursive",
     "test-debug": "mocha --recursive --inspect-brk=0.0.0.0:9228"
   },
@@ -24,6 +24,7 @@
     "eslint-plugin-standard": "3.0.1",
     "express": "4.16.3",
     "mocha": "5.0.5",
-    "redis": "2.8.0"
+    "redis": "2.8.0",
+    "uuid": "3.2.1"
   }
 }

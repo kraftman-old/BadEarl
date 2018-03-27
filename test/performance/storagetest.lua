@@ -3,7 +3,6 @@ local redis = require 'redis'
 local getTimeOfDay = require './lib/gettimeofday'
 
 local red = redis.connect('127.0.0.1', 6379)
-red['bf.add']('test')
 
 local badUrl
 
@@ -44,7 +43,7 @@ end
 local pipelineWritesHset = function(p)
     for i = 1, 10000 do
         badUrl = getString(90)
-        key, badUrl = badUrl:sub(1, 2), badUrl:sub(3)
+        key, badUrl = badUrl:sub(1, #badUrl-2), badUrl:sub(#badUrl-1, #badUrl)
         p:hset(key, badUrl, true)
     end
 end
@@ -56,7 +55,7 @@ local pipelinedWrites = function()
         if i % 100000 == 0 then
             print('processed: ', i, ' keys')
         end
-        red:pipeline(pipelineWrites)
+        red:pipeline(pipelineWritesHset)
     end
 end
 
@@ -79,7 +78,8 @@ local regularWrites = function()
 
 end
 
-regularWrites()
+pipelinedWrites()
+--regularWrites()
 
 
 

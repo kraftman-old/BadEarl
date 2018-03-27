@@ -3,6 +3,10 @@ const bluebird = require('bluebird');
 
 redis.add_command('BF.ADD')
 redis.add_command('BF.EXISTS')
+
+bluebird.promisifyAll(redis.RedisClient.prototype);
+bluebird.promisifyAll(redis.Multi.prototype);
+
 const red = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOST);
 
 red.on("error", function (err) {
@@ -19,10 +23,6 @@ const badURLsKey = 'badUrls'
 const bloom = {
     add: function(value) {
         red['BF.ADD'](['bloom', value], function(err, res ) {console.log(res)} )
-
-        // red.send_command('BF.ADD', ['bloom', value], function(res) {
-        //     console.log(res)
-        // })
         
     },
     exists: function(value) {
