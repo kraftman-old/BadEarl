@@ -4,21 +4,43 @@ const validateURL = require('../middleware/validateurl.js');
 
 const router = express.Router();
 
+const buildRseponse = function() {
+    return {
+        data: {
+            urls: []
+        }
+    }
+}
+
 // pass to redis
 // check the result
 const checkURL = async function(req, res, next) {
     const domainToCheck = res.locals.hostname;
-
+    console.log('checking:'+domainToCheck)
+    const response = buildRseponse()
     try {
         const isBadUrl = await red.isBadUrl(domainToCheck)
         
         if (isBadUrl) {
-            return res.send('url is unsafe!')
-        } 
-        return res.send('url is safe!')
+            response.data.urls.push({
+                domain: res.locals.hostname, 
+                safe: false
+            })
+        } else {
+            response.data.urls.push({
+                domain: res.locals.hostname, 
+                safe: true
+            })
+        }
+        return res.json(response);
     } catch(err) {
         console.log('error getting from redis: ', err)
-        next(err);
+        res.json({
+            error: {
+                status: 500,
+                mesage: 'Internal server error',
+            }
+        })
     }
 }
 

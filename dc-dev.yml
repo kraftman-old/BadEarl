@@ -10,4 +10,4 @@ services:
       - '8080:8080'
       - '9229:9229'
       - '9228:9228'
-    command: ['nodemon', '--inspect=0.0.0.0:9229', 'server.js']
+    command: ['nodemon', '-L', '--inspect=0.0.0.0:9229', 'server.js']
