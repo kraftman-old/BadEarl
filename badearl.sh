@@ -7,7 +7,7 @@ case $1 in
   start )
     docker-compose ${devfiles} stop
     docker-compose ${devfiles} rm -f
-    docker-compose ${devfiles} up -d
+    docker-compose ${devfiles} up --scale api=3 -d 
     ;;
   stop )
     docker-compose ${devfiles} stop
@@ -17,6 +17,10 @@ case $1 in
     ;;
   build )
     docker-compose ${devfiles} build
+    ;;
+  
+  scale )
+    docker-compose ${devfiles} scale $2
     ;;
   logs )
     docker-compose ${devfiles} logs -f $2

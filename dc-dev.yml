@@ -3,11 +3,29 @@ services:
   redis:
     ports:
       - '6379:6379'
+
   api:
     env_file:
       - node/dev.env
-    ports:
-      - '8080:8080'
-      - '9229:9229'
-      - '9228:9228'
+    expose:
+      - '8080'
+    #ports:
+    #  - '8080:8080'
+    #  - '9229:9229'
+    #  - '9228:9228'
     command: ['nodemon', '-L', '--inspect=0.0.0.0:9229', 'server.js']
+    depends_on:
+      - redis
+
+  nginx:
+    image: nginx:1.13
+    ports: 
+      - '8080:8080'
+    command: [nginx, '-g', 'daemon off;']
+    depends_on:
+      - api
+    volumes:
+      - './nginx/nginx.dev.conf:/etc/nginx/nginx.conf'
+    #privileged: true
+    #sysctls:
+    #  - net.ipv4.ip_local_port_range = 10000 65000
