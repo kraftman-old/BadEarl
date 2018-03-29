@@ -16,7 +16,6 @@ const buildRseponse = function() {
 // check the result
 const checkURL = async function(req, res, next) {
     const domainToCheck = res.locals.hostname;
-    console.log('checking:'+domainToCheck)
     const response = buildRseponse()
     try {
         const isBadUrl = await red.isBadUrl(domainToCheck)
