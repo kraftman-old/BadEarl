@@ -33,13 +33,7 @@ const checkURL = async function(req, res, next) {
         }
         return res.json(response);
     } catch(err) {
-        console.log('error getting from redis: ', err)
-        res.json({
-            error: {
-                status: 500,
-                mesage: 'Internal server error',
-            }
-        })
+        return next(err);
     }
 }
 
