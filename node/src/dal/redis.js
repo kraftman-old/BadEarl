@@ -12,7 +12,8 @@ red.on("error", function (err) {
 
 const badURLsKey = 'badUrls'
 
-const isBadUrl = async function(URL) {
+const isBadURL = async function(URL) {
+    console.log(URL)
     const result = await red.sismemberAsync(badURLsKey, URL);
 
     if (result === 1) {
@@ -25,6 +26,19 @@ const isBadUrl = async function(URL) {
     }
 }
 
+const addURLs = async function(urls) {
+
+    //pipeline this later
+    let status;
+    for(let url of urls) {
+        console.log('addding', url)
+        status = await red.sadd(badURLsKey, url);
+        console.log(status)
+        return status;
+    };
+}
+
 module.exports = { 
-    isBadUrl 
+    isBadURL,
+    addURLs
 }

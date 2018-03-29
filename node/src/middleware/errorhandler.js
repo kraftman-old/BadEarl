@@ -1,11 +1,16 @@
 
+const InputValidationError = require('../errors/InputValidationError');
 
 module.exports = function(err, req, res, next) {
     console.error(err);
-    res.status(500)
+    let status = 500;
+    if (err instanceof InputValidationError) {
+        status = 400;
+    } 
+    res.status(status)
     .json({
         error: {
-            status: 500,
+            status: status,
             mesage: 'Internal server error',
         }
     })

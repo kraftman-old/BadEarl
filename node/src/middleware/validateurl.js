@@ -1,11 +1,12 @@
 const { URL } = require('url');
+const InputValidationError = require('../errors/InputValidationError');
 
-const validateParams = function(req, res, next) {
+const validateGetParams = function(req, res, next) {
     let badURL = req.query.url;
     try {
         badURL = new URL(badURL); 
     } catch(e) {
-        return next(e);
+        return next(new InputValidationError(e));
     }
 
     res.locals.host = badURL.host; // example.org:91
@@ -17,6 +18,15 @@ const validateParams = function(req, res, next) {
     return next()
 }
 
+const validatePostParams = function(req, res, next) {
+    if (!req.body.urls) {
+        return next(new InputValidationError('At least one URL must be provided'))
+    }
+    return next()
+    // check if its an array
+}
+
 module.exports = {
-    validateParams
+    validateGetParams,
+    validatePostParams,
 }

@@ -1,8 +1,11 @@
 
 const express  = require('express');
+const bodyParser = require('body-parser');
 const safeURL  = require('./src/controllers/safeurl');
 const errorHandler = require('./src/middleware/errorhandler');
 const app = express();
+
+app.use(bodyParser.json());
 
 app.use('/safeurl', safeURL)
 

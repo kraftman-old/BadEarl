@@ -4,7 +4,7 @@ const validateURL = require('../middleware/validateurl.js');
 
 const router = express.Router();
 
-const buildRseponse = function() {
+const buildResponse = function() {
     return {
         data: {
             urls: []
@@ -16,9 +16,9 @@ const buildRseponse = function() {
 // check the result
 const checkURL = async function(req, res, next) {
     const domainToCheck = res.locals.hostname;
-    const response = buildRseponse()
+    const response = buildResponse()
     try {
-        const isBadUrl = await red.isBadUrl(domainToCheck)
+        const isBadUrl = await red.isBadURL(domainToCheck)
         
         if (isBadUrl) {
             response.data.urls.push({
@@ -37,11 +37,25 @@ const checkURL = async function(req, res, next) {
     }
 }
 
-//only apply this middleware to this route
-router.use(validateURL.validateParams)
+const addURL = async function(req, res, next) {
+    const urls = req.body.urls
+    try {
+        const status = await red.addURLs(urls);
+        return res.json({
+            data: {
+                status: status,
+            }
+        })
+    } catch(e) {
+        next(e);
+    }
+}
 
+//only apply this middleware to this route
+router.get('/', validateURL.validateGetParams);
 router.get('/', checkURL)
 
-router.post('/', function() {})
+router.post('/', validateURL.validatePostParams);
+router.post('/', addURL)
 
 module.exports = router
