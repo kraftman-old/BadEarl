@@ -15,21 +15,18 @@ const buildResponse = function() {
 // pass to redis
 // check the result
 const checkURL = async function(req, res, next) {
-    const domainToCheck = res.locals.hostname;
+    const stringToCheck = res.locals.hostname;
+        + res.locals.pathname
+        + res.locals.search;
+
     const response = buildResponse()
     try {
-        const isBadUrl = await red.isBadURL(domainToCheck)
-        if (isBadUrl) {
-            response.data.urls.push({
-                domain: res.locals.hostname, 
-                safe: false
-            })
-        } else {
-            response.data.urls.push({
-                domain: res.locals.hostname, 
-                safe: true
-            })
+        const isBadUrl = await red.isBadURL(stringToCheck)
+        const urlResponse = {
+            domain: res.locals.hostname,
+            safe: !isBadUrl
         }
+        response.data.urls.push(url)
         return res.json(response);
     } catch(err) {
         return next(err);
