@@ -66,11 +66,29 @@ URLs to be checked should be sent as a query parameter to the service in the for
 ###Examples
 
 #### Request
-`http://localhost:8080/safeurl?url=http://example.org`
+GET `http://localhost:8080/safeurl?url=http://example.org`
 
 #### Response
 Content-Type: text/html
 
 Body: 
 
-'url is safe!'
+
+Success:
+Successes will return a list of URLs (currently only 1 until POSTing multiple URLs is added.)
+```
+data {
+    urls: [
+        domain: 'http://example.org',
+        safe: true
+    ]
+}
+```
+
+
+Error:
+```{
+    error: 'Invalid URL',
+    status: 400
+}
+```
