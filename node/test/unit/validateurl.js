@@ -28,7 +28,7 @@ const getFakeNext = function() {
 }
 
 describe('url validation', function() {
-    it('checks the url is passed in', function() {
+    it('is case insensitive when checking urls', function() {
         const req = getFakeReq();
         const res = getFakeRes();
         const next = getFakeNext();

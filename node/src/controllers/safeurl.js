@@ -15,6 +15,7 @@ const buildResponse = function() {
 // pass to redis
 // check the result
 const checkURL = async function(req, res, next) {
+    //TODO: allow POSTing multiple urls
     const stringToCheck = res.locals.hostname;
         + res.locals.pathname
         + res.locals.search;
@@ -26,7 +27,7 @@ const checkURL = async function(req, res, next) {
             domain: res.locals.hostname,
             safe: !isBadUrl
         }
-        response.data.urls.push(url)
+        response.data.urls.push(urlResponse)
         return res.json(response);
     } catch(err) {
         return next(err);
@@ -39,7 +40,8 @@ const addURL = async function(req, res, next) {
         const status = await red.addURLs(urls);
         return res.json({
             data: {
-                status: status,
+                //TODO: return the URLs
+                status: 200,
             }
         })
     } catch(e) {

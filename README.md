@@ -65,6 +65,8 @@ URLs to be checked should be sent as a query parameter to the service in the for
 
 ###Examples
 
+Check URL:
+
 #### Request
 GET `http://localhost:8080/safeurl?url=http://example.org`
 
@@ -87,7 +89,42 @@ data {
 
 
 Error:
-```{
+```
+{
+    error: 'Invalid URL',
+    status: 400
+}
+```
+
+Add URL:
+
+POST `http://localhost:8080/safeurl`
+Body: 
+```
+{
+    "urls": [
+        "itschr.is"
+    ]
+}
+```
+
+Response:
+
+Success:
+
+Successes will return an object with status = 200 currently. In the future
+they will return information about the created URLs.
+
+```
+data {
+    status: 200
+}
+```
+
+
+Error:
+```
+{
     error: 'Invalid URL',
     status: 400
 }
