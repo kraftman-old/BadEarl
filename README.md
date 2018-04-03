@@ -19,6 +19,11 @@ Requires Docker + Docker compose:
 
 ## Project Usage
 
+### Images:
+ - Redis - Custom build of redis with an added module for bloom filters
+ - Node - Parses the URL from the request, performs some input validation, and looks up the URL in Redis
+ - Nginx - Proxies requests to node and caches where possible
+
 ### badearl shell script
 This is a simple wrapper around the docker compose files to aid development and debugging.
 
