@@ -34,13 +34,13 @@ const isBadURL = function(URL) {
     })
 }
 
-const addURLs = function(urls) {
+const addEntries = function(entries) {
     
     //pipeline this later
     return new Promise(function(resolve, reject) { 
         let status;
-        urls.unshift(badURLsKey)
-        red['BF.MADD'](urls, function(err, res ) {
+        entries.unshift(badURLsKey)
+        red['BF.MADD'](entries, function(err, res ) {
             if (err) {
                 return reject(Error(err));
             }
@@ -51,5 +51,5 @@ const addURLs = function(urls) {
 
 module.exports = { 
     isBadURL,
-    addURLs
+    addEntries
 }
