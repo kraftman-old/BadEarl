@@ -59,16 +59,14 @@ The project includes launch scripts for Attaching to Node/the tests.
 
 ### Checking a URL
 Endpoint:
-/safeurl
-
-URLs to be checked should be sent as a query parameter to the service in the format url=\<urltocheck\>
+/urlinfo/1/<hostname:port>/<path+querystring>
 
 ###Examples
 
 Check URL:
 
 #### Request
-GET `http://localhost:8080/safeurl?url=http://example.org`
+GET `http://localhost:8080/urlinfo/example.org:80/test`
 
 #### Response
 Content-Type: text/html
@@ -81,7 +79,8 @@ Successes will return a list of URLs (currently only 1 until POSTing multiple UR
 ```
 data {
     urls: [
-        domain: 'http://example.org',
+        domain: 'example.org',
+        path: 'test'
         safe: true
     ]
 }
@@ -98,12 +97,15 @@ Error:
 
 Add URL:
 
-POST `http://localhost:8080/safeurl`
+POST `http://localhost:8080/urlinfo/1`
 Body: 
 ```
 {
     "urls": [
-        "itschr.is"
+        {
+            domain: "example.org:80",
+            path: "test",
+        }
     ]
 }
 ```
