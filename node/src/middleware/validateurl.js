@@ -6,7 +6,7 @@ const validateGetParams = function(req, res, next) {
     try {
         badURL = new URL(badURL); 
     } catch(e) {
-        return next(new InputValidationError(e));
+        return next(new InputValidationError('Unable to parse URL'));
     }
 
     res.locals.host = badURL.host; // example.org:91
