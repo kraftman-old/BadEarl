@@ -1,13 +1,15 @@
 
 const express  = require('express');
 const bodyParser = require('body-parser');
-const safeURL  = require('./src/controllers/safeurl');
+const getSafeURL  = require('./src/controllers/getsafeurl');
+const createSafeURL  = require('./src/controllers/createsafeurl');
 const errorHandler = require('./src/middleware/errorhandler');
 const app = express();
 
 app.use(bodyParser.json());
 
-app.use('/safeurl', safeURL)
+app.use('/urlinfo/1/', getSafeURL)
+app.use('/urlinfo/1/', createSafeURL)
 
 app.use('*', (req, res, next) => {
     return res.send('unkown route')
