@@ -7,6 +7,8 @@ const validateGetParams = function(req, res, next) {
     const hostAndPort = req.params.hostAndPort;
     const queryString = req.params.pathAndQuery;
 
+    // do we need to validate these now?
+
     return next()
     
     // try {
@@ -21,7 +23,7 @@ const validateGetParams = function(req, res, next) {
     // res.locals.protocol = badURL.protocol; // https
     // res.locals.search   = badURL.search; // ?123
 
-    return next()
+    //return next()
 }
 
 const validatePostParams = function(req, res, next) {
